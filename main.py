@@ -59,8 +59,64 @@ def UserForGenre(genero):
     'Años': Lista_Años,
     'Horas': Lista_Horas
     }
-      
-  
-
 
   return f"Usuario con más horas jugadas para {genero}: {data}"
+
+
+
+@app.get("/Userdata")
+def Userdata(User_id : str):
+    
+    # Agrupamos por usuario
+    df_usuario = df_games[df_games["user_id"]== "DrMolo"]
+
+    # Convertir los valores de la columna a números (omitir los strings)
+    df_usuario['price'] = pd.to_numeric(df_usuario['price'], errors='coerce')
+    # Sumamos el dinero total gastado del usuario
+    df_dinero_gastado = df_usuario['price'].sum()
+
+    # Obtenemos el porcentaje de recomendacion
+    Porcentaje_Recomendacion = df_usuario["recommend"].mean() * 100
+    Porcentaje_Recomendacion
+
+    Cantidad_items = df_usuario["item_id_x"].count()
+    
+    #{"Usuario X" : us213ndjss09sdf, "Dinero gastado": 200 USD, "% de recomendación": 20%, "cantidad de items": 5}
+    diccionario = f"Usuario X: {User_id}, Dinero gastado: {df_dinero_gastado} USD, % de recomendación: {Porcentaje_Recomendacion}%, Cantidad de items: {Cantidad_items} "
+            
+    
+    return diccionario
+
+@app.get("/Best_developer_year")
+def Best_developer_year(año:int):
+
+    
+    df_desarrolador = df_games[df_games["release_date"] == año]
+    # Agrupamos por desarrolador y sumamos las remcomendaciones 
+    df_agrupados = df_desarrolador.groupby(["developer"])["recommend"].sum().reset_index()
+    # Ordenamos los top 3 desarroladores mas recomendados
+    Juego_mas_recomendado = df_agrupados.sort_values(by='recommend', ascending=False).head(3)
+
+    data = {
+            'Puesto 1': Juego_mas_recomendado.iloc[0]["developer"],
+            'Puesto 2': Juego_mas_recomendado.iloc[1]["developer"],
+            'Puesto 3': Juego_mas_recomendado.iloc[2]["developer"]
+        }
+
+    return data
+
+@app.get("/developer_reviews_analysis")
+def developer_reviews_analysis( desarrolladora : str ):
+
+    df_desarrolador = df_games[df_games["developer"] == desarrolladora]
+
+    Cantidad_Registros = df_desarrolador["sentiment_analysis"].value_counts().reset_index()
+
+    positivos = f"Positivos = {Cantidad_Registros.iloc[0][1]}"
+    negativos =  f"Negativos = {Cantidad_Registros.iloc[2][1]}"
+    usuario = desarrolladora
+    data = {
+                usuario:[positivos, negativos]
+                }
+
+    return data
