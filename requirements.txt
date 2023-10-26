@@ -6,6 +6,7 @@ exceptiongroup
 fastapi
 h11
 idna
+pandas
 pydantic
 pydantic_core
 sniffio
