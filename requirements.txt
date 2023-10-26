@@ -1,4 +1,4 @@
-﻿annotated-types
+annotated-types
 anyio
 click
 colorama
@@ -6,10 +6,15 @@ exceptiongroup
 fastapi
 h11
 idna
+numpy
 pandas
 pydantic
 pydantic_core
+python-dateutil
+pytz
+six
 sniffio
 starlette
 typing_extensions
+tzdata
 uvicorn
