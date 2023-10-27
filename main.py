@@ -10,17 +10,21 @@ df_games = pd.read_csv("df_games.csv")
 @app.get("/Developer")
 def Developer(developer:str):
 
-    df_developer = df_games[df_games["developer"] == developer]
+    df_developer = df_games[df_games["developer"] == "Valve"]
     # Calcular el total de aplicaciones por año
     Cantidad_Items = df_developer.groupby('release_date')['item_id_x'].count().reset_index()
 
-    Porcentaje_Free = (df_developer[df_developer['price'] == 'Free'].groupby('release_date')['price'].count() / Cantidad_Items*100).reset_index()
-    Porcentaje_Free = Porcentaje_Free.fillna(0)
+
+    # Los que tienen precio lo instanciamos como "No Free"
+    df_developer["price"] = df_developer["price"].apply(lambda x: "No Free" if isinstance(x, float) else x)
+    # Agrupamos por año y precios "Free" y "No Free"
+    Porcentaje = df_developer.groupby(["release_date", "price"])["price"].count().unstack().fillna(0)
+    # Calcula el porcentaje de elementos "Free" por año
+    Porcentaje["Porcentaje_Free"] = (Porcentaje["Free"] / (Porcentaje["Free"] + Porcentaje["No Free"])) * 100
 
     Años = df_developer.groupby('release_date')["item_id_x"].count().reset_index()
 
-    # Pasamos a listas
-    Porcentaje_Free = list(Porcentaje_Free["release_date"].map("{:.2f}%".format))
+    Porcentaje_Free = list(Porcentaje["Porcentaje_Free"].map("{:.2f}%".format))
     Años = list(Cantidad_Items["release_date"])
     Cantidad_Items = list(Cantidad_Items["item_id_x"])
 
@@ -66,7 +70,7 @@ def UserForGenre(genero):
     'Horas': Lista_Horas
     }
 
-  return f"Usuario con más horas jugadas para {genero}: {data}"
+  return f"Usuario con más horas jugadas para genero: {data}"
 
 
 
