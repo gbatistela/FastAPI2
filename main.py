@@ -17,11 +17,21 @@ def Developer(developer:str):
 
     # Los que tienen precio lo instanciamos como "No Free"
     df_developer.loc[df_developer["price"].apply(lambda x: isinstance(x, float)), "price"] = "No Free"
+    
     # Agrupamos por año y precios "Free" y "No Free"
-    Porcentaje = df_developer.groupby(["release_date", "price"])["price"].count().unstack().fillna(0)
+    Porcentaje = df_developer.groupby(["release_date", "price"])["price"].count().unstack()
     # Calcula el porcentaje de elementos "Free" por año
-    Porcentaje["Porcentaje_Free"] = (Porcentaje["Free"] / (Porcentaje["Free"] + Porcentaje["No Free"])) * 100
+    
+    if 'Free' in Porcentaje.columns:
+        Porcentaje["Porcentaje_Free"] = (Porcentaje["Free"] / (Porcentaje["Free"])) * 100
+        
+    
+    
+    elif 'Free' in Porcentaje.columns and 'No Free' in Porcentaje.columns:
+        Porcentaje["Porcentaje_Free"] = (Porcentaje["Free"] / (Porcentaje["Free"] + Porcentaje["No Free"])) * 100 
 
+    Porcentaje = Porcentaje.fillna(0)
+        
     Años = df_developer.groupby('release_date')["item_id_x"].count().reset_index()
 
     Porcentaje_Free = list(Porcentaje["Porcentaje_Free"].map("{:.2f}%".format))
