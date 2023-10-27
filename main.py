@@ -10,7 +10,7 @@ df_games = pd.read_csv("df_games.csv")
 @app.get("/Developer")
 def Developer(developer:str):
 
-    df_developer = df_games[df_games["developer"] == "Valve"]
+    df_developer = df_games[df_games["developer"] == developer]
     # Calcular el total de aplicaciones por año
     Cantidad_Items = df_developer.groupby('release_date')['item_id_x'].count().reset_index()
 
