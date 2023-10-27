@@ -12,20 +12,26 @@ def Developer(developer:str):
 
     df_developer = df_games[df_games["developer"] == developer]
     # Calcular el total de aplicaciones por año
-    Total_Por_Año = df_developer.groupby('release_date')['price'].count()
-    
-    # Calcular el porcentaje de aplicaciones "Free" por año
-    Porcentaje_Free = (df_developer[df_developer['price'] == 'Free'].groupby('release_date')['price'].count() / Total_Por_Año) * 100
+    Cantidad_Items = df_developer.groupby('release_date')['item_id_x'].count().reset_index()
 
-    # Crear un DataFrame de resumen
-    # Crear un DataFrame de resumen
-    df = pd.DataFrame({
-       'Cantidad Items': Total_Por_Año,
-        'Contenido Free': Porcentaje_Free
-        
-    })
-    
-    return df
+    Porcentaje_Free = (df_developer[df_developer['price'] == 'Free'].groupby('release_date')['price'].count() / Cantidad_Items*100).reset_index()
+    Porcentaje_Free = Porcentaje_Free.fillna(0)
+
+    Años = df_developer.groupby('release_date')["item_id_x"].count().reset_index()
+
+    # Pasamos a listas
+    Porcentaje_Free = list(Porcentaje_Free["release_date"].map("{:.2f}%".format))
+    Años = list(Cantidad_Items["release_date"])
+    Cantidad_Items = list(Cantidad_Items["item_id_x"])
+
+    # Hacemos un zip con las tres listas 
+    listas_unidas = list(zip(Años,Cantidad_Items, Porcentaje_Free))
+
+    # Agregamos las claves para cada indice
+    claves = ['Año', 'Cantidad', 'Porcentaje']
+    diccionario = [dict(zip(claves, fila)) for fila in listas_unidas]
+
+    return diccionario
 
 
 @app.get("/UserForGenre")
