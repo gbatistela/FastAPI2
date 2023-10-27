@@ -5,7 +5,7 @@ app = FastAPI()
 
 # Obtenemos el dataframe
 import pandas as pd
-df_games = pd.read_csv("df_games.csv")
+df_games = pd.read_csv("C:\\Users\\Giuliano\\Desktop\\PI MLOps - STEAM\\df_games.csv")
 
 @app.get("/Developer")
 def Developer(developer:str):
