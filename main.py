@@ -16,7 +16,7 @@ def Developer(developer:str):
 
 
     # Los que tienen precio lo instanciamos como "No Free"
-    df_developer["price"] = df_developer["price"].apply(lambda x: "No Free" if isinstance(x, float) else x)
+    df_developer.loc[df_developer["price"].apply(lambda x: isinstance(x, float)), "price"] = "No Free"
     # Agrupamos por año y precios "Free" y "No Free"
     Porcentaje = df_developer.groupby(["release_date", "price"])["price"].count().unstack().fillna(0)
     # Calcula el porcentaje de elementos "Free" por año
