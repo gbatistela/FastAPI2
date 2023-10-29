@@ -150,7 +150,7 @@ def developer_reviews_analysis( desarrolladora : str ):
 
 
 @app.get("/Top_Juegos_Recomendados")
-def top_recomendados(game):
+def top_recomendados(game:str):
     import pandas as pd
     from sklearn.metrics.pairwise import cosine_similarity
 
