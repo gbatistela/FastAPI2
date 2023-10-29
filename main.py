@@ -145,3 +145,41 @@ def developer_reviews_analysis( desarrolladora : str ):
                 }
 
     return data
+
+
+
+
+@app.get("/Top_Juegos_Recomendados")
+def top_recomendados(game):
+    import pandas as pd
+    from sklearn.metrics.pairwise import cosine_similarity
+
+    # Crear una matriz de usuario-item (User-Item Matrix)
+    user_item_matrix = pd.pivot_table(df_games, values='playtime_forever', index='user_id', columns='item_name', fill_value=0)
+
+    # Calcular la similitud de coseno entre juegos
+    game_similarity = cosine_similarity(user_item_matrix.T)
+
+
+    # Encontrar el índice del juego en la matriz
+
+    game_index = user_item_matrix.columns.get_loc(game)
+    
+
+    # Calcular la similitud de coseno entre el juego deseado y otros juegos
+    game_similarities = game_similarity[game_index]
+
+    # Crear un DataFrame con juegos similares y sus similitudes
+    similar_games = pd.DataFrame({
+        'Game': user_item_matrix.columns,
+        'Similarity': game_similarities
+    })
+
+    # Ordenar los juegos por similitud en orden descendente
+    top_n_recommendations = similar_games.sort_values(by='Similarity', ascending=False)
+
+    # Imprimir las mejores recomendaciones (cambiar 'n' al número deseado de recomendaciones)
+    n = 6
+    top_n_recommendations = top_n_recommendations.head(n)
+
+    return top_n_recommendations[1:6]
