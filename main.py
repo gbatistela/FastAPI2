@@ -93,7 +93,7 @@ def UserForGenre(genero):
 def Userdata(User_id : str):
     
     # Agrupamos por usuario
-    df_usuario = df_games[df_games["user_id"]== "DrMolo"]
+    df_usuario = df_games[df_games["user_id"]== User_id]
 
     # Convertir los valores de la columna a números (omitir los strings)
     df_usuario['price'] = pd.to_numeric(df_usuario['price'], errors='coerce')
@@ -106,7 +106,7 @@ def Userdata(User_id : str):
 
     Cantidad_items = df_usuario["item_id_x"].count()
     
-    #{"Usuario X" : us213ndjss09sdf, "Dinero gastado": 200 USD, "% de recomendación": 20%, "cantidad de items": 5}
+    
     diccionario = f"Usuario X: {User_id}, Dinero gastado: {df_dinero_gastado} USD, % de recomendación: {Porcentaje_Recomendacion}%, Cantidad de items: {Cantidad_items} "
             
     
