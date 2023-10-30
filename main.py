@@ -163,7 +163,7 @@ def top_recomendados(game:str):
 
     # Encontrar el índice del juego en la matriz
 
-    game_index = user_item_matrix.columns.get_loc('WAKFU')
+    game_index = user_item_matrix.columns.get_loc(game)
     
 
     # Calcular la similitud de coseno entre el juego deseado y otros juegos
