@@ -182,4 +182,6 @@ def top_recomendados(game:str):
     
     top_n_recommendations = top_n_recommendations.head(6)
 
-    return list(top_n_recommendations["Game"][1:6])
+    top_n_recommendations = list(top_n_recommendations["Game"][1:6])
+
+    return top_n_recommendations
