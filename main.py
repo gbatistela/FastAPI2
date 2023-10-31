@@ -10,7 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 df_games = pd.read_csv("df_games.csv")
 
-@app.get("/")
+@app.get("/Proyecto individual Giuliano Batistela.")
 def message():
    return "Proyecto individual Giuliano Batistela."
 
@@ -152,25 +152,23 @@ def developer_reviews_analysis( desarrolladora : str ):
 
 
 
-@app.get("/Top_Juegos_Recomendados")
-def top_recomendados(game:str):
+@app.post("/Recomendacion_juego")
+def Recomendacion_juego(item_name:str):
     
-    
+    from sklearn.metrics.pairwise import cosine_similarity
 
-    # Crear una matriz de usuario-item (User-Item Matrix)
+    # Crear una matriz de usuario-item
     user_item_matrix = pd.pivot_table(df_games, values='playtime_forever', index='user_id', columns='item_name', fill_value=0)
 
     # Calcular la similitud de coseno entre juegos
     game_similarity = cosine_similarity(user_item_matrix.T)
 
-
     # Encontrar el índice del juego en la matriz
-
-    game_index = user_item_matrix.columns.get_loc(game)
+    game_index = user_item_matrix.columns.get_loc(item_name)
     
 
     # Calcular la similitud de coseno entre el juego deseado y otros juegos
-    game_similarities = game_similarity[game_index]
+    game_similarities = game_similarity[game_index] 
 
     # Crear un DataFrame con juegos similares y sus similitudes
     similar_games = pd.DataFrame({
@@ -182,9 +180,6 @@ def top_recomendados(game:str):
     top_n_recommendations = similar_games.sort_values(by='Similarity', ascending=False)
 
     # Imprimir los 5 juegos mas recomendados
-    
-    top_n_recommendations = top_n_recommendations.head(6)
-
     top_n_recommendations = dict(top_n_recommendations["Game"][1:6])
     
     return top_n_recommendations
