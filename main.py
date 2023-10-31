@@ -134,7 +134,7 @@ def Best_developer_year(año:int):
     return data
 
 @app.post("/Recomendaciones_juego")
-def Recomendaciones_juego(item_name:int):
+def Recomendaciones_juego(item_name:str):
     
     # Crear una matriz de usuario-item 
     user_item_matrix = pd.pivot_table(df_games, values='playtime_forever', index='user_id', columns='item_name', fill_value=0)
@@ -181,7 +181,7 @@ def developer_reviews_analysis( desarrolladora : str ):
 
 
 @app.post("/Recomendacion_juego")
-def Recomendacion_juego(item_name:int):
+def Recomendacion_juego(item_name:str):
     
     # Crear una matriz de usuario-item 
     user_item_matrix = pd.pivot_table(df_games, values='playtime_forever', index='user_id', columns='item_name', fill_value=0)
