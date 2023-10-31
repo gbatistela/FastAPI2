@@ -132,7 +132,7 @@ def Best_developer_year(año:int):
 
     return data
 
-@app.get("/developer_reviews_analysis")
+@app.get("/Developer_reviews_analysis")
 def developer_reviews_analysis( desarrolladora : str ):
 
     df_desarrolador = df_games[df_games["developer"] == desarrolladora]
@@ -184,6 +184,6 @@ def top_recomendados(game:str):
     
     top_n_recommendations = top_n_recommendations.head(6)
 
-    top_n_recommendations = list(top_n_recommendations["Game"][1:6])
+    top_n_recommendations = dict(top_n_recommendations["Game"][1:6])
     
     return top_n_recommendations
