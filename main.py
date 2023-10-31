@@ -181,18 +181,3 @@ def Recomendacion_juego(item_name:str):
     top_n_recommendations = dict(top_n_recommendations["Game"][1:6])
     
     return top_n_recommendations
-
-@app.get("/Recomendacion_juego")
-def top_recomendados(game:str):
-    
-    from sklearn.metrics.pairwise import cosine_similarity
-
-    # Crear una matriz de usuario-item (User-Item Matrix)
-    user_item_matrix = pd.pivot_table(df_games, values='playtime_forever', index='user_id', columns='item_name', fill_value=0)
-
-    # Crear un DataFrame con juegos similares y sus similitudes
-    similar_games =  user_item_matrix.columns,
-        
-
-
-    return similar_games
