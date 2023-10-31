@@ -133,6 +133,36 @@ def Best_developer_year(año:int):
 
     return data
 
+@app.post("/Recomendaciones_juego")
+def Recomendaciones_juego(item_name:int):
+    
+    # Crear una matriz de usuario-item 
+    user_item_matrix = pd.pivot_table(df_games, values='playtime_forever', index='user_id', columns='item_name', fill_value=0)
+
+    # Calcular la similitud de coseno entre juegos
+    game_similarity = cosine_similarity(user_item_matrix.T)
+
+    # Encontrar el índice del juego en la matriz
+    game_index = user_item_matrix.columns.get_loc(item_name)
+    
+
+    # Calcular la similitud de coseno entre el juego deseado y otros juegos
+    game_similarities = game_similarity[game_index] 
+
+    # Crear un DataFrame con juegos similares y sus similitudes
+    similar_games = pd.DataFrame({
+        'Game': user_item_matrix.columns,
+        'Similarity': game_similarities
+    })
+
+    # Ordenar los juegos por similitud en orden descendente
+    top_n_recommendations = similar_games.sort_values(by='Similarity', ascending=False)
+
+    # Imprimir los 5 juegos mas recomendados
+    top_n_recommendations = dict(top_n_recommendations["Game"][1:6])
+    
+    return top_n_recommendations
+
 @app.get("/Developer_reviews_analysis")
 def developer_reviews_analysis( desarrolladora : str ):
 
@@ -151,7 +181,7 @@ def developer_reviews_analysis( desarrolladora : str ):
 
 
 @app.post("/Recomendacion_juego")
-def Recomendacion_juego(item_name:str):
+def Recomendacion_juego(item_name:int):
     
     # Crear una matriz de usuario-item 
     user_item_matrix = pd.pivot_table(df_games, values='playtime_forever', index='user_id', columns='item_name', fill_value=0)
