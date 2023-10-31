@@ -70,7 +70,7 @@ def UserForGenre(genero):
     Usuario_Horas_Jugadas = df_agrupados[df_agrupados["playtime_forever"]== df_agrupados["playtime_forever"].max()]["user_id"].values[0]
   else:
     Usuario_Horas_Jugadas = None
-  # LISTA ACUMULADA POR AÑO
+
   # Hacemos un dataframe para el usuario que mas horas jugo con sus años ordenados
   df_Horas_Acumulado = df_genero.sort_values(by='release_date')
   df_Horas_Acumulado = df_genero[df_genero["user_id"] == Usuario_Horas_Jugadas]
@@ -153,7 +153,7 @@ def developer_reviews_analysis( desarrolladora : str ):
 
 
 @app.post("/Recomendacion_juego")
-def Recomendacion_juego(item_name:str):
+def Recomendacion_juego(item_name):
     
     # Crear una matriz de usuario-item 
     user_item_matrix = pd.pivot_table(df_games, values='playtime_forever', index='user_id', columns='item_name', fill_value=0)
