@@ -1,8 +1,11 @@
-# Proyecto individual ML_OPS
+# Proyecto Individual ML_OPS
+
 ![](henryy.png)
-Realice un proyecto basado en un conjunto de datos donde teniamos 3 dataset en formato json, extraídos de la plataforma Steam Games.
+
 
 ## ETL
+  
+Realice un proyecto basado en un conjunto de datos donde teniamos 3 dataset en formato json, extraídos de la plataforma Steam Games.
 
 Obteniendo los 3 dataset comenzamos desanidando las columnas que eran necesarias para obtener mas informacion y poder hacer un join entre las tablas,
 luego en algunas columnas hicimos algunas transformaciones como el tipo de dato, eliminamos valores nulos donde era necesario para el rendimiento de la API y para que los endpoints funcionen correctamente. 
