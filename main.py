@@ -9,7 +9,9 @@ import pandas as pd
 
 df_games = pd.read_csv("df_games.csv")
 
-
+@app.get("/")
+def message():
+   return "Proyecto individual Giuliano Batistela."
 
 
 @app.get("/Developer")
@@ -183,5 +185,5 @@ def top_recomendados(game:str):
     top_n_recommendations = top_n_recommendations.head(6)
 
     top_n_recommendations = list(top_n_recommendations["Game"][1:6])
-
+    
     return top_n_recommendations
