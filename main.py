@@ -5,6 +5,7 @@ app = FastAPI()
 
 # Obtenemos el dataframe
 import pandas as pd
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 df_games = pd.read_csv("df_games.csv")
@@ -154,7 +155,7 @@ def developer_reviews_analysis( desarrolladora : str ):
 @app.get("/Top_Juegos_Recomendados")
 def top_recomendados(game:str):
     
-    from sklearn.metrics.pairwise import cosine_similarity
+    
 
     # Crear una matriz de usuario-item (User-Item Matrix)
     user_item_matrix = pd.pivot_table(df_games, values='playtime_forever', index='user_id', columns='item_name', fill_value=0)
