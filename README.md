@@ -1,4 +1,4 @@
-# Proyecto individual 
+# Proyecto individual ML_OPS
 
 Realice un proyecto basado en un conjunto de datos donde teniamos 3 dataset en formato json, extraídos de la plataforma Steam Games.
 
@@ -15,7 +15,6 @@ Luego, procedimos a eliminar los valores duplicados al comparar múltiples colum
 
 Finalmente, representamos gráficamente la distribución del análisis de sentimiento por año y trazamos la evolución de los comentarios positivos y negativos a lo largo del tiempo.
 
-
-
-
 ## Modelo de aprendizaje automático 
+
+Desarrolle una función que nos permite seleccionar un juego y obtener cinco recomendaciones de juegos similares al elegido
