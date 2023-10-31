@@ -23,3 +23,7 @@ Finalmente, representamos gráficamente la distribución del análisis de sentim
 ## Modelo de aprendizaje automático 
 
 Desarrolle una función que nos permite seleccionar un juego y obtener cinco recomendaciones de juegos similares al elegido
+
+## API
+
+Se ha creado un entorno virtual y se han instalado todas las bibliotecas necesarias para desarrollar una API. Esta API consta de cinco funciones que realizan diferentes consultas, además se creo una función donde fue entrenada con machine learning que nos proporciona recomendaciones de juegos en función del juego especificado en la consulta.
