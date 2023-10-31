@@ -150,14 +150,10 @@ def developer_reviews_analysis( desarrolladora : str ):
     return data
 
 
-
-
 @app.post("/Recomendacion_juego")
 def Recomendacion_juego(item_name:str):
     
-    from sklearn.metrics.pairwise import cosine_similarity
-
-    # Crear una matriz de usuario-item
+    # Crear una matriz de usuario-item 
     user_item_matrix = pd.pivot_table(df_games, values='playtime_forever', index='user_id', columns='item_name', fill_value=0)
 
     # Calcular la similitud de coseno entre juegos
