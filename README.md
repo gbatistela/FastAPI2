@@ -1,5 +1,5 @@
 # Proyecto individual ML_OPS
-![](henryy.jpg)
+![](henryy.PNG)
 Realice un proyecto basado en un conjunto de datos donde teniamos 3 dataset en formato json, extraídos de la plataforma Steam Games.
 
 ## ETL
