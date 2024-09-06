@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API de Análisis de Juegos</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>API de Análisis de Juegos</h1>
+      <form id="developer-form">
+        <label for="developer-name">Nombre del Desarrollador:</label>
+        <input type="text" id="developer-name" name="developer-name" required />
+        <button type="submit">Consultar Reseñas</button>
+      </form>
+      <form id="developer-info-form">
+        <label for="developer-info-name"
+          >Nombre del Desarrollador (Info):</label
+        >
+        <input
+          type="text"
+          id="developer-info-name"
+          name="developer-info-name"
+          required
+        />
+        <button type="submit">Consultar Información</button>
+      </form>
+      <form id="user-genre-form">
+        <label for="genre-name">Género:</label>
+        <input type="text" id="genre-name" name="genre-name" required />
+        <button type="submit">Consultar Usuario con Más Horas</button>
+      </form>
+      <form id="user-data-form">
+        <label for="user-id">ID de Usuario:</label>
+        <input type="text" id="user-id" name="user-id" required />
+        <button type="submit">Consultar Datos del Usuario</button>
+      </form>
+      <form id="best-developer-form">
+        <label for="year">Año:</label>
+        <input type="number" id="year" name="year" required />
+        <button type="submit">Consultar Mejores Desarrolladores del Año</button>
+      </form>
+      <form id="recommendation-form">
+        <label for="item-name">Nombre del Juego:</label>
+        <input type="text" id="item-name" name="item-name" required />
+        <button type="submit">Consultar Recomendaciones</button>
+      </form>
+      <div id="results">
+        <h2>Resultados</h2>
+        <div id="output"></div>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
